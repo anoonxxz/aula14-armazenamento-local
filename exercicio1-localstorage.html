@@ -1,26 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloco de Anotações Pessoal</title>
     <link rel="stylesheet" href="localstrg1.css">
 </head>
+
 <body>
+
     <div class="container">
         <h1>Bloco de Anotações Pessoal</h1>
+
         <p class="subtitulo">
             Salve suas anotações de forma rápida!
         </p>
 
-    <textarea id="anotacao" name="anotacao" rows="4" cols="50" placeholder="Escreva aqui..."></textarea>
-    <div class="botoes">
-        <button type="button" id="btnSalvar"> Salvar</button>
-        <button type="button" id="btnLimpar" class="perigo"> Limpar</button>
-    </div>
-<div id="mensagem"></div>
+        <textarea id="anotacao"></textarea>
 
-</div>
-    <script src="localstgr1.css"></script>
+        <div class="botoes">
+            <button id="btnSalvar">Salvar</button>
+            <button id="btnLimpar" class="perigo">Limpar</button>
+        </div>
+
+        <div id="mensagem"></div>
+    </div>
+
     <script src="localstrg1.js"></script>
 </body>
 </html>
