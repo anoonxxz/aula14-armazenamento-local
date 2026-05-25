@@ -62,6 +62,85 @@
 
 </div>
 
+<script>
+
+    const textos = {
+        pt: {
+            titulo: "Bem-vindo",
+            subtitulo: "Escolha seu idioma",
+            frase: "Este é um site de exemplo."
+        },
+        en: {
+            titulo: "Welcome",
+            subtitulo: "Choose your language",
+            frase: "This is a sample website."
+        }
+    };
+
+    function aplicarIdioma(idioma) {
+        document.getElementById("titulo").textContent = textos[idioma].titulo;
+        document.getElementById("subtitulo").textContent = textos[idioma].subtitulo;
+        document.getElementById("frase").textContent = textos[idioma].frase;
+
+        document.getElementById("idioma").value = idioma;
+    }
+
+    function setCookie(nome, valor, dias) {
+        const data = new Date();
+        data.setTime(data.getTime() + (dias * 24 * 60 * 60 * 1000));
+
+        document.cookie =
+            `${nome}=${valor}; max-age=${1209600}; path=/`;
+    }
+
+    function getCookie(nome) {
+        const cookies = document.cookie.split("; ");
+
+        for (let c of cookies) {
+            const [chave, valor] = c.split("=");
+            if (chave === nome) {
+                return valor;
+            }
+        }
+        return null;
+    }
+
+    function deleteCookie(nome) {
+        document.cookie = `${nome}=; max-age=0; path=/`;
+    }
+
+    function salvarIdioma() {
+        const idioma = document.getElementById("idioma").value;
+
+        setCookie("idioma", idioma, 14);
+        aplicarIdioma(idioma);
+
+        document.getElementById("mensagem").textContent =
+            "Preferência salva!";
+    }
+
+    function removerIdioma() {
+        deleteCookie("idioma");
+
+        aplicarIdioma("pt");
+
+        document.getElementById("mensagem").textContent =
+            "Preferência removida!";
+    }
+
+    function iniciar() {
+        const idiomaSalvo = getCookie("idioma");
+
+        if (idiomaSalvo) {
+            aplicarIdioma(idiomaSalvo);
+        } else {
+            aplicarIdioma("pt");
+        }
+    }
+
+    iniciar();
+
+</script>
 
 </body>
 </html>
