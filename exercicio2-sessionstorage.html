@@ -93,12 +93,89 @@ button:hover {
     <div class="botoes">
         <button type="button" id="btnEsvCar">Esvaziar o carrinho</button>
     </div>
-    
+
 <div id="mensagem"></div>
 
 </div>
 
 <script>
+    let produtos = [];
+    
+    function carregar() {
+    const salvo = sessionStorage.getItem("carrinho");
+
+    if (salvo) {
+        produtos = JSON.parse(salvo);
+    }
+
+    atualizarLista();
+}
+
+    function salvar() {
+    sessionStorage.setItem("carrinho", JSON.stringify(produtos));
+}
+
+
+    function atualizarLista() {
+        const lista = document.getElementById("listaCarrinho");
+        const contador = document.getElementById("contador");
+
+        lista.innerHTML = "";
+
+        contador.textContent = `${produtos.length} produto(s) no carrinho!`;
+
+        produtos.forEach((produto, index) => {
+            const li = document.createElement("li");
+            li.textContent = produto;
+
+        
+            const btn = document.createElement("button");
+            btn.textContent = "Remover";
+            btn.style.marginLeft = "10px";
+
+            btn.onclick = () => {
+                produtos.splice(index, 1);
+                salvar();
+                atualizarLista();
+        };
+
+            li.appendChild(btn);
+            lista.appendChild(li);
+    });
+}
+
+document.getElementById("btnAddCar").onclick = function () {
+    const input = document.getElementById("pesquisa");
+    const valor = input.value.trim();
+
+    if (valor === "") {
+        document.getElementById("mensagem").textContent =
+            "Digite um produto!";
+        return;
+    }
+
+    produtos.push(valor);
+    input.value = "";
+
+    salvar();
+    atualizarLista();
+
+    document.getElementById("mensagem").textContent =
+        "Produto adicionado!";
+};
+
+document.getElementById("btnEsvCar").onclick = function () {
+    produtos = [];
+
+    sessionStorage.removeItem("carrinho");
+
+    atualizarLista();
+
+    document.getElementById("mensagem").textContent =
+        "Carrinho esvaziado!";
+};
+
+carregar();
 
 </script>
 
